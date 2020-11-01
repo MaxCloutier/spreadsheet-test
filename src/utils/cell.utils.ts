@@ -40,7 +40,7 @@ const formatCellData = (data, value) => {
 
     try {
       // Get an array of all the cell positions from the value
-      const cells = equation.replace('=', '').match(/[a-z]+[0-9]/gi)
+      const cells = equation.replace('=', '').match(/[a-z]+[0-9]+/gi)
 
       cells.forEach(cell => {
         const cellVal = formatCellData(data, `${data[cell]}`)
@@ -52,7 +52,7 @@ const formatCellData = (data, value) => {
         }
       });
 
-      value = safeEval(equation)
+      value = `${safeEval(equation)}`
     } catch (error) {
       value = error.message
     }
