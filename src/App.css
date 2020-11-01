@@ -1,38 +1,37 @@
-.App {
+@import '~antd/dist/antd.css';
+
+.cell {
+  border: 1px solid #cacaca;
+  box-sizing: border-box;
+  color: black;
+  font-size: 14px;
+  height: 25px;
+  line-height: 15px;
+  margin: 0;
+  overflow: hidden;
+  padding: 4px;
+  position: relative;
+  text-align: left;
+  vertical-align: top;
+  width: 100px;
+}
+
+.cell.perimeter-cell {
+  background-color: #f0f0f0;
+  font-weight: bold;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.cell.selected {
+  outline: 2px solid #00adff;
+  outline-offset: -1px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cell-input,
+.cell-input:focus {
+  background: none;
+  border: none;
+  height: 100%;
+  width: 100%;
+  outline: none;
 }
