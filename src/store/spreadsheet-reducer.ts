@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { Dispatch } from "react";
-import { getLetter, formatAllData } from "../utils/cell.utils";
+import { getLetter, formatAllData, getNewPosition } from "../utils/cell.utils";
 import { SpreadSheetReducer, CellValueUpdateState, MoveCellPayload, DispatchAction, ActionType } from './typings'
 
 let localStorageData
@@ -50,37 +50,9 @@ export const spreadSheetReducer: Reducer<SpreadSheetReducer, DispatchAction> = (
       formatedData: newFormatedData
     };
   } else if (action.type === ActionType.MOVE_SELECTED_CELL) {
-    const { x, y, direction } = action.payload as MoveCellPayload
-    const currentPosition = state.selectedCell.split('-')
-
-    switch (direction) {
-      case 'right':
-      case 'left':
-        const alpha = 'abcdefghijklmnopqrstuvwxyz'.split('')
-        const letters = currentPosition[1].split('')
-        // gets the alphabetical index of the letter then adds 26 times the amount of letter when there's more than 1 letter
-        const currentY = alpha.indexOf(letters[0]) + (letters.length - 1) * 26
-        let newY
-
-        if (direction === 'right') {
-          newY = currentY < y ? currentY + 1 : y
-        } else {
-          newY = currentY > 0 ? currentY - 1 : 0
-        }
-
-        currentPosition[1] = getLetter(newY)
-        break
-      case 'top':
-        currentPosition[0] = `${parseFloat(currentPosition[0]) > 1 ? parseFloat(currentPosition[0]) - 1 : 1}`
-        break
-      case 'bottom':
-        currentPosition[0] = `${parseFloat(currentPosition[0]) < x - 1 ? parseFloat(currentPosition[0]) + 1 : x - 1}`
-        break
-    }
-
     return {
       ...state,
-      selectedCell: currentPosition.join('-')
+      selectedCell: getNewPosition({ selectedCell: state.selectedCell, ...(action.payload as MoveCellPayload) })
     }
   }
 

@@ -1,4 +1,4 @@
-import { getLetter, isNumeric, getCellData, getFormatedCellData, formatAllData } from "../utils/cell.utils"
+import { getLetter, isNumeric, getCellData, getFormatedCellData, formatAllData, getNewPosition } from "../utils/cell.utils"
 
 test('return letter according to cell index', () => {
   const tests = [
@@ -188,9 +188,152 @@ test('return format all the cells data and return it', () => {
         'g4': '5',
         'a3': '10',
       }
+    },
+    {
+      input: {
+        'a1': 10,
+        'a2': 5,
+        'a3': '=a1*a2',
+      },
+      output: {
+        'a1': '10',
+        'a2': '5',
+        'a3': '50',
+      }
+    },
+    {
+      input: {
+        'a1': 10,
+        'a2': 5,
+        'a3': '=a1/a2',
+      },
+      output: {
+        'a1': '10',
+        'a2': '5',
+        'a3': '2',
+      }
+    },
+    {
+      input: {
+        'a1': 10,
+        'a2': 5,
+        'a3': '=a1/a2*2',
+      },
+      output: {
+        'a1': '10',
+        'a2': '5',
+        'a3': '4',
+      }
     }
   ]
   tests.forEach(({input, output}) => {
     expect(formatAllData(input)).toEqual(output)
+  })
+})
+
+test('return new selectedCell', () => {
+  const tests = [
+    {
+      input: {
+        selectedCell: '1-a',
+        direction: 'right',
+        x: 10,
+        y: 10
+      },
+      output: '1-b'
+    },
+    {
+      input: {
+        selectedCell: '1-k',
+        direction: 'right',
+        x: 10,
+        y: 10
+      },
+      output: '1-k'
+    },
+    {
+      input: {
+        selectedCell: '1-z',
+        direction: 'right',
+        x: 10,
+        y: 26
+      },
+      output: '1-aa'
+    },
+    {
+      input: {
+        selectedCell: '1-aa',
+        direction: 'right',
+        x: 10,
+        y: 27
+      },
+      output: '1-bb'
+    },
+    {
+      input: {
+        selectedCell: '1-zz',
+        direction: 'right',
+        x: 10,
+        y: 100
+      },
+      output: '1-aaa'
+    },
+    {
+      input: {
+        selectedCell: '1-b',
+        direction: 'left',
+        x: 10,
+        y: 100
+      },
+      output: '1-a'
+    },
+    {
+      input: {
+        selectedCell: '1-a',
+        direction: 'left',
+        x: 10,
+        y: 100
+      },
+      output: '1-a'
+    },
+    {
+      input: {
+        selectedCell: '1-a',
+        direction: 'bottom',
+        x: 10,
+        y: 100
+      },
+      output: '2-a'
+    },
+    {
+      input: {
+        selectedCell: '9-a',
+        direction: 'bottom',
+        x: 10,
+        y: 100
+      },
+      output: '9-a'
+    },
+    {
+      input: {
+        selectedCell: '2-a',
+        direction: 'top',
+        x: 10,
+        y: 100
+      },
+      output: '1-a'
+    },
+    {
+      input: {
+        selectedCell: '1-a',
+        direction: 'top',
+        x: 10,
+        y: 100
+      },
+      output: '1-a'
+    }
+  ]
+  tests.forEach(({input, output}) => {
+    expect(getNewPosition(input)).toEqual(output)
   })
 })
