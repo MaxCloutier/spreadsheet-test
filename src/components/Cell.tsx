@@ -41,11 +41,9 @@ const Cell: FC<Props> = ({ cellValue, formatedValue, x, y, selectedCell }) => {
 
   let classes = 'cell'
 
-  if (y === 0) {
-    classes += ' perimeter-cell'
-  }
   // row 0
   if (y === 0) {
+    classes += ' perimeter-cell'
     return (
       <th className={classes} role="presentation">
         {x}
