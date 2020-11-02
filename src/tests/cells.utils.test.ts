@@ -224,6 +224,34 @@ test('return format all the cells data and return it', () => {
         'a2': '5',
         'a3': '4',
       }
+    },
+    {
+      input: {
+        'a1': 10,
+        'a2': 5,
+        'a3': 5,
+        'a4': '=a1+a2*a3',
+      },
+      output: {
+        'a1': '10',
+        'a2': '5',
+        'a3': '5',
+        'a4': '35',
+      }
+    },
+    {
+      input: {
+        'a1': 10,
+        'a2': 5,
+        'a3': 5,
+        'a4': '=(a1+a2)*a3',
+      },
+      output: {
+        'a1': '10',
+        'a2': '5',
+        'a3': '5',
+        'a4': '75',
+      }
     }
   ]
   tests.forEach(({input, output}) => {
