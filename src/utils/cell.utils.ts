@@ -8,9 +8,9 @@ export const getLetter = (index) => {
 
   // Starts at 2 since the join method wouldn't put anything if there's only one item in the array created from the multiplier
   // (((x - 1) / 26) >> 0) Shifting by 0 truncates the fractional part leaving only the amount of times 26 fits in x giving us the amount of letters we must add to have the proper spreadsheet headers (...z, aa, bb, cc... ...zz, aaa, bbb...)
-  const multiplier = 2 + ((index / 26) >> 0)
+  const multiplier = 1 + ((index / 26) >> 0)
 
-  return letter && Array(multiplier).join(`${letter}`)
+  return letter && letter.repeat(multiplier)
 }
 
 export const isNumeric = (number) => {
